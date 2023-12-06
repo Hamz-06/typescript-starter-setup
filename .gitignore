@@ -1,8 +1,4 @@
-.env
-node_modules
-dist
-.vscode
-
-package-lock.json
-myreadme.md
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
 ```
