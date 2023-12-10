@@ -1,4 +1,4 @@
-# express, typescript, JWT auth, kafka, docker compose and kubernetes 
+# express, typescript, JWT auth, kafka, docker compose
 
 - Eslint config and typescript config 
 - Express server, typescript
@@ -9,7 +9,7 @@
 
 
 # Set up to test locally using docker compose
-To get started, rename the .env.example file to .env.development or .env.production
+To get started, rename the .env.xx.example file to .env.development or .env.production
 
 To run the app in development mode, run the following command 
 
@@ -23,18 +23,17 @@ Two folders are in src directory
 
 - InteractServerApp
 Generate JWT auth by sending a post request to
-This will send a cookie to your browser with the JWT token
+This will send a cookie to your browser with the JWT token, you can then use this token to access the kafka endpoint
 http://localhost:3000/otp/generate-otp 
 
 You can then invoke kafka endpoint by sending a get request to this endpoint
 http://localhost:3000/kafka/invoke
 
-This folder also has a producer that will send a message to the kafka topic (rider-topic) 
+This will produce a message and send it to the kafka topic (rider-topic) 
 
 - KafkaServerApp
 This contains the kafka consumer that will consume the message sent by the producer in the InteractServerApp folder and log it to the console
 
-# Move to cloud using terraform and kubernetes
 
 
 
