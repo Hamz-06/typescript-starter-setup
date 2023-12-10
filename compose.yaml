@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  my-server:
+    build:
+      context: ./InteractServerApp
+
+      # args:
+      #   ENVIROMENT_STAGE: ${ENVIROMENT_STAGE}
+    depends_on:
+      - zookeeper
+    ports:
+      - 3000:3000
+    env_file:
+      - .env.development
+    environment:
+      ENVIROMENT_STAGE: ${ENVIROMENT_STAGE}
+
+  kafka-service:
+    build:
+      context: ./KafkaServerApp
+      
+      # args:
+      #   ENVIROMENT_STAGE: ${ENVIROMENT_STAGE}
+    depends_on:
+      - zookeeper
+    ports:
+      - 3001:3001
+    env_file:
+      - .env.development
+    environment:
+      ENVIROMENT_STAGE: ${ENVIROMENT_STAGE}
+      
+  zookeeper:
+    image: wurstmeister/zookeeper
+    hostname: zookeeper-server
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    env_file:
+      - .env.development
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${IP_ADDRESS}
+      KAFKA_ZOOKEEPER_CONNECT: ${IP_ADDRESS}:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${IP_ADDRESS}:9092
+
+      
+# docker-compose --env-file .my-env  up -d
+# docker compose --env-file .env.development up --force-recreate
